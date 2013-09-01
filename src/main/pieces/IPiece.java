@@ -1,6 +1,6 @@
 package main.pieces;
 
-import main.Position.Position;
+import main.position.Position;
 
 /**
  * @author Alex Telon
@@ -9,7 +9,7 @@ public interface IPiece {
 
     /**
      * Getter for the position of the piece
-     * @return
+     * @return the position of the piece
      */
     public Position getPosition();
 
