@@ -24,10 +24,10 @@ public class Board {
      * Default chess board is created
      */
     public Board() {
-      // white:
-      for (int i = 0; i < 8; i++) {
-          board[6][i] = new Pawn(this, Side.White, i, 6);
-      }
+        // white:
+        for (int i = 0; i < 8; i++) {
+            board[6][i] = new Pawn(this, Side.White, i, 6);
+        }
     }
 
     /**
@@ -65,7 +65,12 @@ public class Board {
         return board[position.getY()][position.getX()];
     }
 
-    public Position getPosOnGrid(Position pos) {
+    /**
+     * Turns a pixel position into a board position.
+     * @param pos in pixels
+     * @return the position on the board
+     */
+    public Position getPosOnGridFromPixelPos(Position pos) {
         int xPixel = pos.getX();
         int yPixel = pos.getY();
         int xtmp = Globals.getPieceSize();
@@ -83,5 +88,53 @@ public class Board {
         }
 
         return new Position(xGrid,yGrid);
+    }
+
+    /**
+     * Moves a piece and removes the piece it lands on.
+     * @param piece to be moved
+     * @param newPosition where the piece is to be moved
+     */
+    public void movePieceTo(Piece piece, Position newPosition) {
+        int x  = newPosition.getX();
+        int y  = newPosition.getY();
+        if (board[y][x] != null) {
+            board[y][x].remove();
+        }
+        board[y][x] = piece;
+    }
+
+    /**
+     * Empties a position
+     * @param position position to be emptied
+     */
+    public void empty(Position position) {
+        int x  = position.getX();
+        int y  = position.getY();
+
+        board[y][x] = null;
+    }
+
+    /**
+     * Tries to move a piece. If another piece is on the new position already or
+     * if new position is invalid then return false.
+     * @param piece piece to be moved
+     * @param newPosition new position for the piece
+     * @return true if successful
+     */
+    public boolean tryMove(Piece piece, Position newPosition) {
+        if (isSameSidePiece(newPosition, piece.getSide()))
+            return false;
+
+        Position originalPosition = new Position(piece.getPosition());
+
+        // Try to give a new position to the piece
+        if (piece.getPosition().setY(newPosition.getY()) &&
+                piece.getPosition().setX(newPosition.getX()) ) {
+            empty(originalPosition);
+            movePieceTo(piece, newPosition);
+            return true;
+        }
+        return false;
     }
 }

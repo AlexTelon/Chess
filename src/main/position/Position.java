@@ -8,6 +8,11 @@ public class Position {
     private static int WIDTH = 8;
     private static int HEIGHT = 8;
 
+    public Position(Position position) {
+        setX(position.getX());
+        setY(position.getY());
+    }
+
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
