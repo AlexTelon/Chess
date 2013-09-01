@@ -17,17 +17,23 @@ public class Position {
         return x;
     }
 
-    public void setX(int x) {
-        if (x >= 0 && x <= WIDTH)
-        this.x = x;
+    public boolean setX(int x) {
+        if (x >= 0 && x <= WIDTH) {
+            this.x = x;
+            return true;
+        }
+        return false;
     }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        if (y >= 0 && y <= HEIGHT)
-        this.y = y;
+    public boolean setY(int y) {
+        if (y >= 0 && y <= HEIGHT) {
+            this.y = y;
+            return true;
+        }
+        return false;
     }
 }
