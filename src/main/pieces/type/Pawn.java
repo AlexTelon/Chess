@@ -62,42 +62,62 @@ public class Pawn  extends Piece implements IPiece {
 
         int x = position.getX();
         int y = position.getY();
-        Position temp = new Position(0,0);
-        Position temp2 = new Position(0,0);
-        int distance;
+        int direction;
         if (this.getSide() == Side.White) {
-            distance = -1;
+            direction = -1;
         } else {
-            distance = 1;
+            direction = 1;
         }
 
-        // add the positions for basic movement forward
-        if (temp.setX(x) && temp.setY(y+distance)) {
-            if (board.isEmpty(temp))
-            possiblePositions.add(temp);
-        }
-        if (firstMove) {
-            if (temp2.setX(x) && temp2.setY(y+distance*2)) {
-                if (board.isEmpty(temp2))
-                possiblePositions.add(temp2);
+        possiblePositions.addAll(getBasicForwardMovement(direction));
+
+        // if we are on the top/bottom row then turn into other piece.
+        // so no possible movement is possible.
+        if (y != 0 && y != 7) {
+            // Show possible left attacking movement
+            if (x != 0) {
+                Position attackingLeft = new Position(x-1,y+direction);
+                if (!board.isEmpty(attackingLeft)) {
+                    if (!board.isSameSidePiece(attackingLeft, this.getSide())) {
+                        possiblePositions.add(attackingLeft);
+                    }
+                }
             }
-        }
-
-        // Show possible sideways movements
-        Position attackingLeft = new Position(x-1,y+distance);
-        Position attackingRight = new Position(x+1,y+distance);
-
-        if (!board.isEmpty(attackingLeft)) {
-            if (!board.isSameSidePiece(attackingLeft, this.getSide())) {
-                possiblePositions.add(attackingLeft);
-            }
-        }
-        if (!board.isEmpty(attackingRight)) {
-            if (!board.isSameSidePiece(attackingRight, this.getSide())) {
-                possiblePositions.add(attackingRight);
+            // Show possible right attacking movement
+            if (x != 7) {
+                Position attackingRight = new Position(x+1,y+direction);
+                if (!board.isEmpty(attackingRight)) {
+                    if (!board.isSameSidePiece(attackingRight, this.getSide())) {
+                        possiblePositions.add(attackingRight);
+                    }
+                }
             }
         }
         return  possiblePositions;
     }
 
+    private ArrayList<Position> getBasicForwardMovement(int direction) {
+        ArrayList<Position> possiblePositions = new ArrayList<Position>();
+
+        int x = position.getX();
+        int y = position.getY();
+        Position temp = new Position(0,0);
+        Position temp2 = new Position(0,0);
+        // add the positions for basic movement forward
+        if (y != 0 && y != 7) {
+            if (temp.setX(x) && temp.setY(y+direction)) {
+                if (board.isEmpty(temp)) {
+                    possiblePositions.add(temp);
+                } else // if a piece is in the way don't continue past
+                    return possiblePositions;
+            }
+            if (firstMove) {
+                if (temp2.setX(x) && temp2.setY(y+direction*2)) {
+                    if (board.isEmpty(temp2))
+                        possiblePositions.add(temp2);
+                }
+            }
+        }
+        return possiblePositions;
+    }
 }
