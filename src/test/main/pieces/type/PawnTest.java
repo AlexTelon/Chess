@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class PawnTest {
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private Board board = new Board(pieces); // an empty board
-    private Piece piece;
+    private Pawn piece;
 
     @Before
     public void before() throws Exception {
@@ -40,20 +40,26 @@ public class PawnTest {
          */
 
         piece = new Pawn(board, Side.White ,0,0);
+        piece.setFirstMove(false);
         board.add(piece);
         piece = new Pawn(board, Side.Black ,7,7);
+        piece.setFirstMove(false);
         board.add(piece);
         piece = new Pawn(board, Side.Black ,3,3);
+        piece.setFirstMove(false);
         board.add(piece);
         piece = new Pawn(board, Side.White ,4,4);
+        piece.setFirstMove(false);
         board.add(piece);
         piece = new Pawn(board, Side.White ,1,6);
         board.add(piece);
         piece = new Pawn(board, Side.Black ,6,1);
         board.add(piece);
         piece = new Pawn(board, Side.White ,6,2);
+        piece.setFirstMove(false);
         board.add(piece);
         piece = new Pawn(board, Side.White ,1,4);
+        piece.setFirstMove(false);
         board.add(piece);
     }
 
@@ -82,11 +88,6 @@ public class PawnTest {
         if (board.tryMove(piece, new Position(3, 3))) {
             assertSame(board.getPiece(new Position(3,3)), piece);
         }
-
-        // try to make some invalid moves
-        assertFalse(board.tryMove(board.getPiece(new Position(6, 2)), new Position(6, 1)));
-        assertFalse(board.tryMove(board.getPiece(new Position(6, 1)), new Position(6, 2)));
-        assertFalse(board.tryMove(board.getPiece(new Position(6, 1)), new Position(6, 3)));
 
     }
 
@@ -118,24 +119,25 @@ public class PawnTest {
      */
     @Test
     public void testReturnPossiblePositions() throws Exception {
-        assertNull(board.getPiece(new Position(0,0)).getPossiblePositions());
-        assertNull(board.getPiece(new Position(7,7)).getPossiblePositions());
-        assertNull(board.getPiece(new Position(6,1)).getPossiblePositions());
-        assertNull(board.getPiece(new Position(6,2)).getPossiblePositions());
+        assertEquals(new ArrayList<Position>(), board.getPiece(new Position(0, 0)).getPossiblePositions());
+        assertEquals(new ArrayList<Position>(), board.getPiece(new Position(7, 7)).getPossiblePositions());
+        assertEquals(new ArrayList<Position>(), board.getPiece(new Position(6,1)).getPossiblePositions());
+        assertEquals(new ArrayList<Position>(), board.getPiece(new Position(6,2)).getPossiblePositions());
 
         // testing the movement of the middle white pieces options to move
+        // A VERY fragile test since the order matters..
+        // TODO make this more robust
         ArrayList<Position> newPositions = new ArrayList<Position>();
-        newPositions.add(new Position(4, 4));
         newPositions.add(new Position(4, 3));
+        newPositions.add(new Position(3, 3));
 
-        assertEquals(board.getPiece(new Position(4,4)).getPossiblePositions(), newPositions);
+        assertEquals(newPositions, board.getPiece(new Position(4,4)).getPossiblePositions());
 
         // testing normal starting movement for white piece position
         newPositions.clear();
         newPositions.add(new Position(1, 5));
-        newPositions.add(new Position(1, 4));
 
-        assertEquals(board.getPiece(new Position(1,6)).getPossiblePositions(), newPositions);
+        assertEquals(newPositions ,board.getPiece(new Position(1,6)).getPossiblePositions());
 
         // testing normal movement in the middle of the board
         newPositions.clear();

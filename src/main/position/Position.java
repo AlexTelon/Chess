@@ -23,7 +23,7 @@ public class Position {
     }
 
     public boolean setX(int x) {
-        if (x >= 0 && x <= WIDTH) {
+        if (x >= 0 && x < WIDTH) {
             this.x = x;
             return true;
         }
@@ -35,7 +35,7 @@ public class Position {
     }
 
     public boolean setY(int y) {
-        if (y >= 0 && y <= HEIGHT) {
+        if (y >= 0 && y < HEIGHT) {
             this.y = y;
             return true;
         }
@@ -60,5 +60,15 @@ public class Position {
         int result = x;
         result = 31 * result + y;
         return result;
+    }
+
+    /**
+     * Checks if the point is outside of the board bounds
+     * @return true if valid
+     */
+    public boolean isValid() {
+        if (x < 0 || x > 7) return false;
+        if (y < 0 || y > 7) return false;
+        return true;
     }
 }

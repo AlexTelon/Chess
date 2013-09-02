@@ -7,7 +7,6 @@ import main.pieces.Piece;
 import main.pieces.type.Pawn;
 import main.position.Position;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -91,7 +90,7 @@ public class Board {
 
     /**
      * Returns what is on the position. null or Piece
-     * @param position
+     * @param position where to seek a Piece
      * @return null or Piece
      */
     public Piece getPiece(Position position) {
@@ -165,11 +164,13 @@ public class Board {
      * enemy piece then remove it and move to that position.
      * @param piece piece to be moved
      * @param newPosition new position for the piece
-     * @return true if successful
+     * @return true if successful, false otherwise
      */
     public boolean tryMove(Piece piece, Position newPosition) {
-        if (isSameSidePiece(newPosition, piece.getSide()))
-            return false;
+        if (newPosition.isValid()) {
+            if (isSameSidePiece(newPosition, piece.getSide()))
+                return false;
+        }
 
         Position originalPosition = new Position(piece.getPosition());
 
@@ -179,8 +180,8 @@ public class Board {
 
             // old piece is removed
             if (board[newPosition.getY()][newPosition.getX()] != null) {
-               board[newPosition.getY()][newPosition.getX()].remove();
-           }
+                board[newPosition.getY()][newPosition.getX()].remove();
+            }
 
             empty(originalPosition);
             movePieceTo(piece, newPosition);

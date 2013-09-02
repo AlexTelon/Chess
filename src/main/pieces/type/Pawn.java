@@ -121,4 +121,14 @@ public class Pawn  extends Piece implements IPiece {
         }
         return possiblePositions;
     }
+
+    /**
+     * Set/unset if this is the pieces first move.
+     * Only used in tests.
+     * @param firstMove
+     */
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
+
 }

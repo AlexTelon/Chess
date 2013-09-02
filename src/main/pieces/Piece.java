@@ -40,4 +40,6 @@ public class Piece implements IPiece {
     public ArrayList<Position> getPossiblePositions() {
         return possiblePositions;
     }
+
+
 }
