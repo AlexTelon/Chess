@@ -52,7 +52,7 @@ public class Board {
      * Sees if the new position is occupied by an piece from the same side
      * @param newPosition possible position of a piece
      * @param side side to compare the (possible) other piece with
-     * @return true if on the same side
+     * @return true if on the same side, false if null
      */
     public boolean isSameSidePiece(Position newPosition, Side side) {
         int x  = newPosition.getX();
@@ -121,9 +121,21 @@ public class Board {
     }
 
     /**
+     *
+     * @param position position to be examined
+     * @return true if empty
+     */
+    public boolean isEmpty(Position position) {
+        int x  = position.getX();
+        int y  = position.getY();
+        return (board[y][x] == null);
+    }
+
+
+    /**
      * Tries to move a piece. If another piece is on the new position already or
      * if new position is invalid then return false.
-     * @param piece piece to be moved
+     * @param piece piece to be movedvbh
      * @param newPosition new position for the piece
      * @return true if successful
      */

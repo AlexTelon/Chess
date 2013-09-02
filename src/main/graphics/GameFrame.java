@@ -21,6 +21,7 @@ public class GameFrame extends JFrame implements MouseListener {
     private Piece highlightedPiece = null;
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
     private boolean showPossiblePositions = false;
+    private ArrayList<Position> invalidPossiblePositions = new ArrayList<Position>();
 
 
     public GameFrame(Board board) throws HeadlessException {
@@ -118,5 +119,17 @@ public class GameFrame extends JFrame implements MouseListener {
 
     public boolean isShowPossiblePositions() {
         return showPossiblePositions;
+    }
+
+    public ArrayList<Position> getInvalidPossiblePositions() {
+        invalidPossiblePositions.clear();
+        for (Position currentPosition : possiblePositions) {
+            if (!board.isEmpty(currentPosition)) {
+                if (!board.isSameSidePiece(currentPosition, board.getPiece(currentPosition).getSide())) {
+                    invalidPossiblePositions.add(currentPosition);
+                }
+            }
+        }
+        return invalidPossiblePositions;
     }
 }

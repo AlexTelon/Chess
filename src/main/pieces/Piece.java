@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * @author Alex Telon
  */
 public class Piece implements IPiece {
+    private ArrayList<Position> possiblePositions = new ArrayList<Position>();
 
     @Override
     public Position getPosition() {
@@ -37,6 +38,6 @@ public class Piece implements IPiece {
 
     @Override
     public ArrayList<Position> returnPossiblePositions() {
-        return null;
+        return possiblePositions;
     }
 }

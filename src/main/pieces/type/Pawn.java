@@ -64,24 +64,37 @@ public class Pawn  extends Piece implements IPiece {
         int y = position.getY();
         Position temp = new Position(0,0);
         Position temp2 = new Position(0,0);
-
+        int distance;
         if (this.getSide() == Side.White) {
-            if (temp.setX(x) && temp.setY(y-1)) {
-                possiblePositions.add(temp);
-            }
-            if (firstMove) {
-                if (temp2.setX(x) && temp2.setY(y-2)) {
-                    possiblePositions.add(temp2);
-                }
-            }
+            distance = -1;
         } else {
-            if (temp.setX(x) && temp.setY(y+1)) {
-                possiblePositions.add(temp);
+            distance = 1;
+        }
+
+        // add the positions for basic movement forward
+        if (temp.setX(x) && temp.setY(y+distance)) {
+            if (board.isEmpty(temp))
+            possiblePositions.add(temp);
+        }
+        if (firstMove) {
+            if (temp2.setX(x) && temp2.setY(y+distance*2)) {
+                if (board.isEmpty(temp2))
+                possiblePositions.add(temp2);
             }
-            if (firstMove) {
-                if (temp2.setX(x) && temp2.setY(y+2)) {
-                    possiblePositions.add(temp2);
-                }
+        }
+
+        // Show possible sideways movements
+        Position attackingLeft = new Position(x-1,y+distance);
+        Position attackingRight = new Position(x+1,y+distance);
+
+        if (!board.isEmpty(attackingLeft)) {
+            if (!board.isSameSidePiece(attackingLeft, this.getSide())) {
+                possiblePositions.add(attackingLeft);
+            }
+        }
+        if (!board.isEmpty(attackingRight)) {
+            if (!board.isSameSidePiece(attackingRight, this.getSide())) {
+                possiblePositions.add(attackingRight);
             }
         }
         return  possiblePositions;
