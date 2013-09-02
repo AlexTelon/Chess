@@ -3,6 +3,8 @@ package main.pieces;
 import main.globals.Globals.Side;
 import main.position.Position;
 
+import java.util.ArrayList;
+
 /**
  * @author Alex Telon
  */
@@ -40,5 +42,10 @@ public interface IPiece {
      */
     public Side getSide();
 
+    /**
+     * Returns an ArrayList of valid positions for the given
+     * piece.
+     */
+    public ArrayList<Position> returnPossiblePositions();
 
 }

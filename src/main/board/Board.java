@@ -28,6 +28,12 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             board[6][i] = new Pawn(this, Side.White, i, 6);
         }
+
+        // black
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Pawn(this, Side.Black, i, 1);
+        }
+
     }
 
     /**
@@ -53,7 +59,7 @@ public class Board {
         int y  = newPosition.getY();
         Piece piece = board[y][x];
 
-        return ( piece != null &&  piece.getSide() != side);
+        return ( piece != null &&  piece.getSide() == side);
     }
 
     /**

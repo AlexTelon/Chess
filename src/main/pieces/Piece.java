@@ -3,6 +3,8 @@ package main.pieces;
 import main.globals.Globals;
 import main.position.Position;
 
+import java.util.ArrayList;
+
 /**
  * @author Alex Telon
  */
@@ -30,6 +32,11 @@ public class Piece implements IPiece {
 
     @Override
     public Globals.Side getSide() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Position> returnPossiblePositions() {
         return null;
     }
 }
