@@ -117,7 +117,6 @@ public class Board {
     public void empty(Position position) {
         int x  = position.getX();
         int y  = position.getY();
-
         board[y][x] = null;
     }
 
