@@ -33,8 +33,35 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             board[1][i] = new Pawn(this, Side.Black, i, 1);
         }
-
     }
+
+    /**
+     * Creates a custom starting point. Used in testing.
+     * @param pieces all pieces that are to be placed on the board
+     */
+    public Board(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
+        int x,y;
+        for (Piece currentPiece : pieces) {
+            x = currentPiece.getPosition().getX();
+            y = currentPiece.getPosition().getY();
+            board[y][x] = currentPiece;
+        }
+    }
+
+    /**
+     * adds a piece to the board. Verification should be done by the caller!
+     * Used for testing purposes.
+     * @param piece piece to be added
+     */
+    public void add(Piece piece) {
+        this.pieces.add(piece);
+
+        int x = piece.getPosition().getX();
+        int y = piece.getPosition().getY();
+        board[y][x] = piece;
+    }
+
 
     /**
      * Removes piece from the board
@@ -133,9 +160,10 @@ public class Board {
 
 
     /**
-     * Tries to move a piece. If another piece is on the new position already or
-     * if new position is invalid then return false.
-     * @param piece piece to be movedvbh
+     * Tries to move a piece. If a friendly piece is on the new position already or
+     * if new position is invalid then return false. If new position is occupied by
+     * enemy piece then remove it and move to that position.
+     * @param piece piece to be moved
      * @param newPosition new position for the piece
      * @return true if successful
      */
@@ -148,10 +176,28 @@ public class Board {
         // Try to give a new position to the piece
         if (piece.getPosition().setY(newPosition.getY()) &&
                 piece.getPosition().setX(newPosition.getX()) ) {
+
+            // old piece is removed
+            if (board[newPosition.getY()][newPosition.getX()] != null) {
+               board[newPosition.getY()][newPosition.getX()].remove();
+           }
+
             empty(originalPosition);
             movePieceTo(piece, newPosition);
             return true;
         }
         return false;
+    }
+
+    /**
+     * Clears the entire board
+     */
+    public void clear() {
+        pieces.clear();
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                board[y][x] = null;
+            }
+        }
     }
 }

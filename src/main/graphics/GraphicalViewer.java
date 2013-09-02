@@ -67,7 +67,7 @@ public class GraphicalViewer extends JComponent{
                     piece.getPosition().getY()*Globals.getPieceSize(),
                     Globals.getPieceSize(), Globals.getPieceSize());
 
-            // paint the possiblePositions
+            // paint the getPossiblePositions
             if (gameFrame.isShowPossiblePositions()) {
                 for (Position currentPosition : gameFrame.getPossiblePositions()) {
                     g2.setColor(Color.BLUE);

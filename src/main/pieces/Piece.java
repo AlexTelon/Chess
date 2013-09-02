@@ -37,7 +37,7 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public ArrayList<Position> returnPossiblePositions() {
+    public ArrayList<Position> getPossiblePositions() {
         return possiblePositions;
     }
 }

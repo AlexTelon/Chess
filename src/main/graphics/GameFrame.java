@@ -57,7 +57,7 @@ public class GameFrame extends JFrame implements MouseListener {
             if (piece != null) {
                 highlightedPiece = piece;
                 showPossiblePositions = true;
-                possiblePositions = piece.returnPossiblePositions();
+                possiblePositions = piece.getPossiblePositions();
             }
         }
         repaint();

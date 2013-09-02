@@ -17,9 +17,8 @@ public class PositionTest {
     private Position position = new Position(0,0);
 
     /**
-     *
+     * Tests so no invalid values of Y are set.
      * Method: setX(int x)
-     *
      */
     @Test
     public void testSetX() throws Exception {
@@ -38,9 +37,8 @@ public class PositionTest {
 
 
     /**
-     *
+     * Tests so no invalid values of Y are set.
      * Method: setY(int y)
-     *
      */
     @Test
     public void testSetY() throws Exception {

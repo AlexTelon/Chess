@@ -44,8 +44,9 @@ public interface IPiece {
 
     /**
      * Returns an ArrayList of valid positions for the given
-     * piece.
+     * piece. If none then null is returned
+     * @return possible positions for the piece
      */
-    public ArrayList<Position> returnPossiblePositions();
+    public ArrayList<Position> getPossiblePositions();
 
 }

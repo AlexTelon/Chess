@@ -17,7 +17,7 @@ public class Pawn  extends Piece implements IPiece {
     private Board board;
     private boolean firstMove = true;
 
-    public Pawn(Board board, Side side,int x, int y) {
+    public Pawn(Board board, Side side, int x, int y) {
         this.board = board;
         this.side = side;
         position.setX(x);
@@ -32,7 +32,7 @@ public class Pawn  extends Piece implements IPiece {
     @Override
     public boolean tryMove(Position newPosition) {
 
-        if (returnPossiblePositions().contains(newPosition)) {
+        if (getPossiblePositions().contains(newPosition)) {
             if (board.tryMove(this,newPosition)) {
                 firstMove = false;
                 return true;
@@ -56,8 +56,9 @@ public class Pawn  extends Piece implements IPiece {
         return side;
     }
 
+
     @Override
-    public ArrayList<Position> returnPossiblePositions() {
+    public ArrayList<Position> getPossiblePositions() {
         ArrayList<Position> possiblePositions = new ArrayList<Position>();
 
         int x = position.getX();
