@@ -71,4 +71,54 @@ public class Position {
         if (y < 0 || y > 7) return false;
         return true;
     }
+
+    /**
+     * Sees if a vector can be applied to the Position
+     * @param vector to be applied
+     * @return true if move can  be made.
+     */
+    public boolean canMove(Vector vector) {
+        int x = this.x + vector.getX();
+        int y = this.y + vector.getY();
+
+        if (x < 0 || x > 7) return false;
+        if (y < 0 || y > 7) return false;
+        return true;
+    }
+
+    /**
+     * Add 1 to the position in Y
+     * @param y distance to be added
+     * @return true if successful
+     */
+    public boolean addY(int y) {
+        return setY(this.y+y);
+    }
+
+    /**
+     * Add 1 to the position in X
+     * @param x distance to be added
+     * @return true if successful
+     */
+    public boolean addX(int x) {
+        return setX(this.x+x);
+    }
+
+    /**
+     * Add a vector to the position
+     * Example: vector (1,1) adds 1 to both x and y in the Position.
+     * @param vector to be added to the current position.
+     * @return
+     */
+    public boolean add(Vector vector) {
+        if (canMove(vector)) {
+            setY(this.y+vector.getY());
+            setX(this.x+vector.getX());
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

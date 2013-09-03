@@ -5,6 +5,7 @@ import main.globals.Globals;
 import main.globals.Globals.Side;
 import main.pieces.Piece;
 import main.pieces.type.Pawn;
+import main.pieces.type.Tower;
 import main.position.Position;
 
 import java.util.ArrayList;
@@ -24,11 +25,15 @@ public class Board {
      */
     public Board() {
         // white:
+        board[6][0] = new Tower(this, Side.White, 0, 6);
+        board[6][6] = new Tower(this, Side.White, 6, 6);
         for (int i = 0; i < 8; i++) {
             board[6][i] = new Pawn(this, Side.White, i, 6);
         }
 
         // black
+        board[0][0] = new Tower(this, Side.Black, 0, 0);
+        board[0][6] = new Tower(this, Side.Black, 6, 0);
         for (int i = 0; i < 8; i++) {
             board[1][i] = new Pawn(this, Side.Black, i, 1);
         }
@@ -149,7 +154,7 @@ public class Board {
     /**
      *
      * @param position position to be examined
-     * @return true if empty
+     * @return true if empty)
      */
     public boolean isEmpty(Position position) {
         int x  = position.getX();
