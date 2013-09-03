@@ -98,19 +98,10 @@ public class PawnTest {
      */
     @Test
     public void testGetValue() throws Exception {
-        assertEquals(board.getPiece(new Position(0,0)).getValue(),1);
+        assertEquals(1, board.getPiece(new Position(0,0)).getValue());
     }
 
-    /**
-     *
-     * Method: getSide()
-     *
-     */
-    @Test
-    public void testGetSide() throws Exception {
-        assertEquals(board.getPiece(new Position(0,0)).getSide(), Side.White);
-        assertEquals(board.getPiece(new Position(7,7)).getSide(),Side.Black);
-    }
+
 
     /**
      *
@@ -119,6 +110,7 @@ public class PawnTest {
      */
     @Test
     public void testReturnPossiblePositions() throws Exception {
+        // no possible positions
         assertEquals(new ArrayList<Position>(), board.getPiece(new Position(0, 0)).getPossiblePositions());
         assertEquals(new ArrayList<Position>(), board.getPiece(new Position(7, 7)).getPossiblePositions());
         assertEquals(new ArrayList<Position>(), board.getPiece(new Position(6,1)).getPossiblePositions());

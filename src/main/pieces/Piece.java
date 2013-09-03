@@ -74,6 +74,7 @@ public class Piece implements IPiece {
 
         // only add empty pieces, if enemy piece is found add it and then stop.
         while (temp.canMove(vector) && !blockFound) {
+            temp.add(vector);
             if (!board.isEmpty(temp))
                 blockFound = true;
             if (!board.isSameSidePiece(temp, this.getSide()))
