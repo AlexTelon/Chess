@@ -1,7 +1,9 @@
 package main.pieces;
 
+import main.board.Board;
 import main.globals.Globals;
 import main.position.Position;
+import main.position.Vector;
 
 import java.util.ArrayList;
 
@@ -10,20 +12,35 @@ import java.util.ArrayList;
  */
 public class Piece implements IPiece {
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
+    private Position position = new Position(-1,-1); // invalid by default
+    private Globals.Side side;
+    private Board board;
+
+
+    public Piece(Board board, Globals.Side side, int x, int y) {
+        this.board = board;
+        this.side = side;
+        // TODO, could lead to half changed positions..
+        this.position.setX(x);
+        this.position.setY(y);
+    }
 
     @Override
     public Position getPosition() {
-        return null;
+        return position;
     }
 
     @Override
     public boolean tryMove(Position newPosition) {
+        if (getPossiblePositions().contains(newPosition)) {
+            return board.tryMove(this,newPosition);
+        }
         return false;
     }
 
     @Override
     public void remove() {
-
+        board.remove(this);
     }
 
     @Override
@@ -33,7 +50,7 @@ public class Piece implements IPiece {
 
     @Override
     public Globals.Side getSide() {
-        return null;
+        return side;
     }
 
     @Override
@@ -41,5 +58,28 @@ public class Piece implements IPiece {
         return possiblePositions;
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    /**
+     * Gets possible positions for any piece but the pawn.
+     * @param vector direction that the function will look for possible positions
+     * @return all possible positions
+     */
+    public ArrayList<Position> getPossiblePositionsInDirection(Vector vector) {
+        ArrayList<Position> possiblePositions = new ArrayList<Position>();
+        Position temp = new Position(position);
+        boolean blockFound = false;
+
+        // only add empty pieces, if enemy piece is found add it and then stop.
+        while (temp.canMove(vector) && !blockFound) {
+            if (!board.isEmpty(temp))
+                blockFound = true;
+            if (!board.isSameSidePiece(temp, this.getSide()))
+                possiblePositions.add(new Position(temp));
+        }
+        return possiblePositions;
+    }
 
 }

@@ -25,18 +25,19 @@ public class Board {
      */
     public Board() {
         // white:
-        board[6][0] = new Tower(this, Side.White, 0, 6);
-        board[6][6] = new Tower(this, Side.White, 6, 6);
+        add(new Tower(this, Side.White, 0, 6));
+        add(new Tower(this, Side.White, 6, 6));
         for (int i = 0; i < 8; i++) {
-            board[6][i] = new Pawn(this, Side.White, i, 6);
+            add(new Pawn(this, Side.White, i, 6));
         }
 
         // black
-        board[0][0] = new Tower(this, Side.Black, 0, 0);
-        board[0][6] = new Tower(this, Side.Black, 6, 0);
+        add(new Tower(this, Side.Black, 0, 0));
+        add(new Tower(this, Side.Black, 6, 0));
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Pawn(this, Side.Black, i, 1);
+            add(new Pawn(this, Side.Black, i, 1));
         }
+
     }
 
     /**

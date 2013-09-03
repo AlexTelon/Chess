@@ -12,28 +12,17 @@ import java.util.ArrayList;
  * @author Alex Telon
  */
 public class Pawn  extends Piece implements IPiece {
-    private Position position = new Position(-1,-1); // invalid by default
-    private Side side;
-    private Board board;
     private boolean firstMove = true;
 
     public Pawn(Board board, Side side, int x, int y) {
-        this.board = board;
-        this.side = side;
-        position.setX(x);
-        position.setY(y);
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
+       super(board, side, x, y);
     }
 
     @Override
     public boolean tryMove(Position newPosition) {
 
         if (getPossiblePositions().contains(newPosition)) {
-            if (board.tryMove(this,newPosition)) {
+            if (super.getBoard().tryMove(this,newPosition)) {
                 firstMove = false;
                 return true;
             }
@@ -42,18 +31,8 @@ public class Pawn  extends Piece implements IPiece {
     }
 
     @Override
-    public void remove() {
-        board.remove(this);
-    }
-
-    @Override
     public int getValue() {
         return 1;
-    }
-
-    @Override
-    public Side getSide() {
-        return side;
     }
 
 
@@ -61,8 +40,8 @@ public class Pawn  extends Piece implements IPiece {
     public ArrayList<Position> getPossiblePositions() {
         ArrayList<Position> possiblePositions = new ArrayList<Position>();
 
-        int x = position.getX();
-        int y = position.getY();
+        int x = super.getPosition().getX();
+        int y = super.getPosition().getY();
         int direction;
         if (this.getSide() == Side.White) {
             direction = -1;
@@ -78,8 +57,8 @@ public class Pawn  extends Piece implements IPiece {
             // Show possible left attacking movement
             if (x != 0) {
                 Position attackingLeft = new Position(x-1,y+direction);
-                if (!board.isEmpty(attackingLeft)) {
-                    if (!board.isSameSidePiece(attackingLeft, this.getSide())) {
+                if (!super.getBoard().isEmpty(attackingLeft)) {
+                    if (!super.getBoard().isSameSidePiece(attackingLeft, this.getSide())) {
                         possiblePositions.add(attackingLeft);
                     }
                 }
@@ -87,8 +66,8 @@ public class Pawn  extends Piece implements IPiece {
             // Show possible right attacking movement
             if (x != 7) {
                 Position attackingRight = new Position(x+1,y+direction);
-                if (!board.isEmpty(attackingRight)) {
-                    if (!board.isSameSidePiece(attackingRight, this.getSide())) {
+                if (!super.getBoard().isEmpty(attackingRight)) {
+                    if (!super.getBoard().isSameSidePiece(attackingRight, this.getSide())) {
                         possiblePositions.add(attackingRight);
                     }
                 }
@@ -100,21 +79,21 @@ public class Pawn  extends Piece implements IPiece {
     private ArrayList<Position> getBasicForwardMovement(int direction) {
         ArrayList<Position> possiblePositions = new ArrayList<Position>();
 
-        int x = position.getX();
-        int y = position.getY();
+        int x = super.getPosition().getX();
+        int y = super.getPosition().getY();
         Position temp = new Position(0,0);
         Position temp2 = new Position(0,0);
         // add the positions for basic movement forward
         if (y != 0 && y != 7) {
             if (temp.setX(x) && temp.setY(y+direction)) {
-                if (board.isEmpty(temp)) {
+                if (super.getBoard().isEmpty(temp)) {
                     possiblePositions.add(temp);
                 } else // if a piece is in the way don't continue past
                     return possiblePositions;
             }
             if (firstMove) {
                 if (temp2.setX(x) && temp2.setY(y+direction*2)) {
-                    if (board.isEmpty(temp2))
+                    if (super.getBoard().isEmpty(temp2))
                         possiblePositions.add(temp2);
                 }
             }
