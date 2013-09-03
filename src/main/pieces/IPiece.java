@@ -34,7 +34,7 @@ public interface IPiece {
      * Used to get the value of the piece
      * @return
      */
-    public int getValue();
+    public double getValue();
 
     /**
      *

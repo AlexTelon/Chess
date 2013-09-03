@@ -4,8 +4,7 @@ package main.board;
 import main.globals.Globals;
 import main.globals.Globals.Side;
 import main.pieces.Piece;
-import main.pieces.type.Pawn;
-import main.pieces.type.Tower;
+import main.pieces.type.*;
 import main.position.Position;
 
 import java.util.ArrayList;
@@ -25,15 +24,27 @@ public class Board {
      */
     public Board() {
         // white:
-        add(new Tower(this, Side.White, 0, 6));
-        add(new Tower(this, Side.White, 6, 6));
+        add(new Tower(this, Side.White, 0, 7));
+        add(new Knight(this, Side.White, 1, 7));
+        add(new Bishop(this, Side.White, 2, 7));
+        add(new Queen(this, Side.White, 3, 7));
+        add(new King(this, Side.White, 4, 7));
+        add(new Bishop(this, Side.White, 5, 7));
+        add(new Knight(this, Side.White, 6, 7));
+        add(new Tower(this, Side.White, 7, 7));
         for (int i = 0; i < 8; i++) {
             add(new Pawn(this, Side.White, i, 6));
         }
 
         // black
         add(new Tower(this, Side.Black, 0, 0));
-        add(new Tower(this, Side.Black, 6, 0));
+        add(new Knight(this, Side.Black, 1, 0));
+        add(new Bishop(this, Side.Black, 2, 0));
+        add(new King(this, Side.Black, 3, 0));
+        add(new Queen(this, Side.Black, 4, 0));
+        add(new Bishop(this, Side.Black, 5, 0));
+        add(new Knight(this, Side.Black, 6, 0));
+        add(new Tower(this, Side.Black, 7, 0));
         for (int i = 0; i < 8; i++) {
             add(new Pawn(this, Side.Black, i, 1));
         }

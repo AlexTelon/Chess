@@ -93,18 +93,6 @@ public class PawnTest {
 
     /**
      *
-     * Method: getValue()
-     *
-     */
-    @Test
-    public void testGetValue() throws Exception {
-        assertEquals(1, board.getPiece(new Position(0,0)).getValue());
-    }
-
-
-
-    /**
-     *
      * Method: getPossiblePositions()
      *
      */

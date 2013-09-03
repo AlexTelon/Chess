@@ -70,19 +70,12 @@ public class GraphicalViewer extends JComponent{
             // paint the getPossiblePositions
             if (gameFrame.isShowPossiblePositions()) {
                 for (Position currentPosition : gameFrame.getPossiblePositions()) {
-                    g2.setColor(Color.BLUE);
-                    g2.fill(new Rectangle(currentPosition.getX()*Globals.getPieceSize(),
-                            currentPosition.getY()*Globals.getPieceSize(),
-                            Globals.getPieceSize(), Globals.getPieceSize()));
-                }
-
-            // paint invalid possible positions as invalid.
-
-                for (Position currentPosition : gameFrame.getInvalidPossiblePositions()) {
-                    g2.setColor(Color.RED);
-                    g2.fill(new Rectangle(currentPosition.getX()*Globals.getPieceSize(),
-                            currentPosition.getY()*Globals.getPieceSize(),
-                            Globals.getPieceSize(), Globals.getPieceSize()));
+                    if (currentPosition != null) {
+                        g2.setColor(Color.BLUE);
+                        g2.fill(new Rectangle(currentPosition.getX()*Globals.getPieceSize(),
+                                currentPosition.getY()*Globals.getPieceSize(),
+                                Globals.getPieceSize(), Globals.getPieceSize()));
+                    }
                 }
             }
         }

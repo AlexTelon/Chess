@@ -12,16 +12,16 @@ import java.util.ArrayList;
 /**
  * @author Alex Telon
  */
-public class Tower extends Piece implements IPiece {
+public class Queen extends Piece implements IPiece {
 
-    public Tower(Board board, Side side, int x, int y) {
+    public Queen(Board board, Side side, int x, int y) {
         super(board, side, x, y);
     }
 
 
     @Override
     public double getValue() {
-        return 5;
+        return 9;
     }
 
 
@@ -33,6 +33,10 @@ public class Tower extends Piece implements IPiece {
         possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(1,0)));
         possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(0,1)));
         possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(0,-1)));
+        possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(1,1)));
+        possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(-1,1)));
+        possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(-1,-1)));
+        possiblePositions.addAll(getPossiblePositionsInDirection(new Vector(1,-1)));
 
         return  possiblePositions;
     }

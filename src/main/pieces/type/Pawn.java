@@ -31,7 +31,7 @@ public class Pawn  extends Piece implements IPiece {
     }
 
     @Override
-    public int getValue() {
+    public double getValue() {
         return 1;
     }
 

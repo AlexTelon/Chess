@@ -44,8 +44,8 @@ public class Piece implements IPiece {
     }
 
     @Override
-    public int getValue() {
-        return -100;
+    public double getValue() {
+        return -100; // this way we know if something went wrong
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Piece implements IPiece {
         Position temp = new Position(position);
         boolean blockFound = false;
 
-        // only add empty pieces, if enemy piece is found add it and then stop.
+        // only add empty places, if enemy piece is found add it and then stop.
         while (temp.canMove(vector) && !blockFound) {
             temp.add(vector);
             if (!board.isEmpty(temp))
@@ -81,6 +81,25 @@ public class Piece implements IPiece {
                 possiblePositions.add(new Position(temp));
         }
         return possiblePositions;
+    }
+
+    /**
+     * Gets possible positions for any piece but the pawn.
+     * @param vector direction that the function will look for possible positions
+     * @return all possible positions
+     */
+    public Position getPossiblePositionInDirection(Vector vector) {
+        Position temp = new Position(position);
+
+        if (temp.canMove(vector)) {
+            temp.add(vector);
+            if (board.isSameSidePiece(temp, this.getSide())) {
+                return null;
+            }
+            return temp;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -62,14 +62,6 @@ public class TowerTest {
     }
 
     /**
-     * Method: getValue()
-     */
-    @Test
-    public void testGetValue() throws Exception {
-        assertEquals(5, board.getPiece(new Position(0,0)).getValue());
-    }
-
-    /**
      * Method: getPossiblePositions()
      */
     @Test

@@ -21,7 +21,6 @@ public class GameFrame extends JFrame implements MouseListener {
     private Piece highlightedPiece = null;
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
     private boolean showPossiblePositions = false;
-    private ArrayList<Position> invalidPossiblePositions = new ArrayList<Position>();
 
 
     public GameFrame(Board board) throws HeadlessException {
@@ -91,19 +90,4 @@ public class GameFrame extends JFrame implements MouseListener {
         return showPossiblePositions;
     }
 
-    /**
-     * Makes out when your path is blocked by a friendly piece
-     * @return and ArrayList<Position>
-     */
-    public ArrayList<Position> getInvalidPossiblePositions() {
-        invalidPossiblePositions.clear();
-        for (Position currentPosition : possiblePositions) {
-            if (!board.isEmpty(currentPosition)) {
-                if (!board.isSameSidePiece(currentPosition, board.getPiece(currentPosition).getSide())) {
-                    invalidPossiblePositions.add(currentPosition);
-                }
-            }
-        }
-        return invalidPossiblePositions;
-    }
 }
