@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class Piece implements IPiece {
     private BufferedImage img = null;
-    private File dir = new File("");
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
     private Position position = new Position(-1,-1); // invalid by default
     private Globals.Side side;
@@ -32,9 +31,9 @@ public class Piece implements IPiece {
 
         try {
             if (this.side == Globals.Side.White) {
-            img = ImageIO.read(new File("media/king.png"));
+            img = ImageIO.read(new File("media/pawn.png"));
             } else {
-            img = ImageIO.read(new File("media/blackking.png"));
+            img = ImageIO.read(new File("media/bpawn.png"));
             }
         } catch (IOException e) {
             System.out.println("ERROR IN READING PICTURE");

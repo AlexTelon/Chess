@@ -7,6 +7,8 @@ import main.position.Position;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,6 +20,8 @@ import java.awt.*;
 public class GraphicalViewer extends JComponent{
     private Board board;
     private GameFrame gameFrame;
+
+
 
     public GraphicalViewer(Board board, GameFrame gameFrame) {
         this.board = board;
@@ -35,6 +39,7 @@ public class GraphicalViewer extends JComponent{
         return Globals.getPieceSize()*8;
     }
 
+
     /**
      * Paints the whole board
      * @param g
@@ -43,8 +48,11 @@ public class GraphicalViewer extends JComponent{
         Graphics2D g2 = (Graphics2D) g;
         Piece piece;
         Position position;
+        BufferedImage originalImage;
         g2.setColor(Color.ORANGE);
         g2.fill(new Rectangle(0,0,getWidth(),getHeight()));
+
+
 
         // Paint the pieces
         for (int y = 0; y < 8; y++ ) {
@@ -57,8 +65,21 @@ public class GraphicalViewer extends JComponent{
 
                 piece = board.getPiece(new Position(x, y));
                 if (piece != null) {
-                    g2.drawImage(piece.getImg() ,null, piece.getPosition().getX()*Globals.getPieceSize(),
-                            piece.getPosition().getY()*Globals.getPieceSize());
+                    originalImage = piece.getImg();
+
+                    int width = Globals.getPieceSize();
+                    int height = Globals.getPieceSize();
+
+                    int w = originalImage.getWidth();
+                    int h = originalImage.getHeight();
+                    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+                   while (!g2.drawImage(originalImage, piece.getPosition().getX()*Globals.getPieceSize(),
+                           piece.getPosition().getY()*Globals.getPieceSize(), piece.getPosition().getX()*Globals.getPieceSize()+ width,
+                           piece.getPosition().getY()*Globals.getPieceSize()+ height, 0, 0, w, h, null))
+                    {
+                       System.out.println("image is drawing...");
+                   }
                 }
             }
         }
