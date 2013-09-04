@@ -102,6 +102,12 @@ public class Position {
         return false;
     }
 
+    /**
+     * @return if position represents a white square
+     */
+    public boolean isWhitePosition() {
+        return ((getX()+getY()) % 2 == 0);
+    }
 
 
 }

@@ -5,12 +5,18 @@ import main.globals.Globals;
 import main.position.Position;
 import main.position.Vector;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * @author Alex Telon
  */
 public class Piece implements IPiece {
+    private BufferedImage img = null;
+    private File dir = new File("");
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
     private Position position = new Position(-1,-1); // invalid by default
     private Globals.Side side;
@@ -23,6 +29,16 @@ public class Piece implements IPiece {
         // TODO, could lead to half changed positions..
         this.position.setX(x);
         this.position.setY(y);
+
+        try {
+            if (this.side == Globals.Side.White) {
+            img = ImageIO.read(new File("media/king.png"));
+            } else {
+            img = ImageIO.read(new File("media/blackking.png"));
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR IN READING PICTURE");
+        }
     }
 
     @Override
@@ -56,6 +72,11 @@ public class Piece implements IPiece {
     @Override
     public ArrayList<Position> getPossiblePositions() {
         return possiblePositions;
+    }
+
+    @Override
+    public BufferedImage getImg() {
+        return img;
     }
 
     public Board getBoard() {

@@ -42,22 +42,28 @@ public class GraphicalViewer extends JComponent{
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Piece piece;
-
+        Position position = new Position(0,0);
         g2.setColor(Color.ORANGE);
         g2.fill(new Rectangle(0,0,getWidth(),getHeight()));
 
         // Paint the pieces
         for (int y = 0; y < 8; y++ ) {
             for (int x = 0; x < 8; x++) {
+                position = new Position(x, y);
+                g2.setColor(position.isWhitePosition() ? Color.white: Color.ORANGE);
+                g2.fill(new Rectangle(position.getX()*Globals.getPieceSize(),
+                        position.getY()*Globals.getPieceSize(),
+                        Globals.getPieceSize(), Globals.getPieceSize()));
+
                 piece = board.getPiece(new Position(x, y));
                 if (piece != null) {
-                    g2.setColor(piece.getSide() == Globals.Side.White ? Color.white: Color.black);
-                    g2.fill(new Rectangle(piece.getPosition().getX()*Globals.getPieceSize(),
-                            piece.getPosition().getY()*Globals.getPieceSize(),
-                            Globals.getPieceSize(), Globals.getPieceSize()));
+                    g2.drawImage(piece.getImg() ,null, piece.getPosition().getX()*Globals.getPieceSize(),
+                            piece.getPosition().getY()*Globals.getPieceSize());
                 }
             }
         }
+
+
 
         // paint the highlighted piece
         piece = gameFrame.getHighligtedPiece();

@@ -7,7 +7,7 @@ public class Globals {
 
     // size in pixels of one side.
     // All pieces are squares
-    private static int pieceSize = 30;
+    private static int pieceSize = 40;
 
     public enum Side {
         White, Black;

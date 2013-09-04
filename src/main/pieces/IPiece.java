@@ -3,6 +3,8 @@ package main.pieces;
 import main.globals.Globals.Side;
 import main.position.Position;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -48,5 +50,11 @@ public interface IPiece {
      * @return possible positions for the piece
      */
     public ArrayList<Position> getPossiblePositions();
+
+    /**
+     *
+     * @return the BufferedImage of the object
+     */
+    public BufferedImage getImg();
 
 }
