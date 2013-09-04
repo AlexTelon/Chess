@@ -42,7 +42,7 @@ public class GraphicalViewer extends JComponent{
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Piece piece;
-        Position position = new Position(0,0);
+        Position position;
         g2.setColor(Color.ORANGE);
         g2.fill(new Rectangle(0,0,getWidth(),getHeight()));
 
