@@ -1,12 +1,15 @@
 package main.graphics;
 
 import main.board.Board;
+import main.globals.Globals;
 import main.globals.Globals.Side;
 import main.pieces.Piece;
 import main.position.Position;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class GameFrame extends JFrame implements MouseListener {
     private Piece highlightedPiece = null;
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
     private boolean showPossiblePositions = false;
+    private Globals globals = new Globals(this);
 
 
     public GameFrame(Board board) throws HeadlessException {
@@ -39,11 +43,27 @@ public class GameFrame extends JFrame implements MouseListener {
         this.setLayout(new FlowLayout());
         this.pack();
         this.setVisible(true);
+
+        // add listener for changes in the frame
+        this.getRootPane().addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                globals.updateGlobals();
+            }
+        });
+
     }
 
     public static void main(String[] args) {
         new GameFrame(new Board());
     }
+
+    public int getContentSide() {
+        if (this.getContentPane().getSize().width < this.getContentPane().getSize().height) {
+            return this.getContentPane().getSize().width;
+        } else
+            return this.getContentPane().getSize().height;
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
