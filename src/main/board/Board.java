@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Board {
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private Side winner = null;
+    private Side turn = Side.White;
 
 
     // A map of the board with all its pieces
@@ -202,9 +204,26 @@ public class Board {
 
             empty(originalPosition);
             movePieceTo(piece, newPosition);
+            turn = (piece.getSide() == Side.White ? Side.Black : Side.White);
             return true;
         }
         return false;
+    }
+
+    /**
+     *
+     * @return winner, null if game is still ongoing.
+     */
+    public Side getWinner() {
+        return winner;
+    }
+
+    /**
+     * Sets the winning side
+     * @param winner the side that won
+     */
+    public void setWinner(Side winner) {
+        this.winner = winner;
     }
 
     /**
@@ -217,5 +236,9 @@ public class Board {
                 board[y][x] = null;
             }
         }
+    }
+
+    public Side getTurn() {
+        return turn;
     }
 }

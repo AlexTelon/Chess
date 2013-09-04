@@ -35,13 +35,19 @@ public class King extends Piece implements IPiece {
     }
 
     @Override
+    public void remove() {
+        super.remove();
+        super.getBoard().setWinner(super.getSide());
+    }
+
+    @Override
     public BufferedImage getImg() {
         return img;
     }
 
     @Override
     public double getValue() {
-        return 9;
+        return 0;
     }
 
 

@@ -1,6 +1,7 @@
 package main.graphics;
 
 import main.board.Board;
+import main.globals.Globals.Side;
 import main.pieces.Piece;
 import main.position.Position;
 
@@ -48,12 +49,13 @@ public class GameFrame extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Position mouseGridPosition = board.getPosOnGridFromPixelPos(new Position(e.getPoint().x, e.getPoint().y));
         Piece piece = board.getPiece(mouseGridPosition);
+        Side turn = board.getTurn();
 
         if (highlightedPiece != null && highlightedPiece != piece) {
             highlightedPiece.tryMove(mouseGridPosition);
             highlightedPiece = null;
         } else {
-            if (piece != null) {
+            if (piece != null && piece.getSide() == turn) {
                 highlightedPiece = piece;
                 showPossiblePositions = true;
                 possiblePositions = piece.getPossiblePositions();

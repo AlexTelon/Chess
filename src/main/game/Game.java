@@ -13,4 +13,11 @@ public class Game {
     private Player player = new Player();
     private Globals.Side turn = Globals.Side.White;
 
+/*
+    private static void gameLogic() {
+        while(board.getWinner() != null) {
+
+        }
+    }
+*/
 }
