@@ -106,7 +106,26 @@ public class GraphicalViewer extends JComponent{
                 }
             }
         }
+
+        if (board.getWinner() != null) {
+            winnerGraphics(g2);
+            //GameFrame.resetGame();
+        }
+
     }
+
+    private void winnerGraphics(Graphics2D g2) {
+        g2.setColor(Color.ORANGE);
+        g2.fill(new Rectangle(0,0,getWidth(),getHeight()));
+        g2.setColor(Color.black);
+        if (board.getWinner() == Globals.Side.White) {
+            g2.drawString("White side won!",100, 100);
+        } else {
+            g2.drawString("Black side won!",100, 100);
+        }
+
+    }
+
 }
 
 

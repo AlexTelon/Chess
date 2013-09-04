@@ -241,4 +241,8 @@ public class Board {
     public Side getTurn() {
         return turn;
     }
+
+    public void reset() {
+
+    }
 }

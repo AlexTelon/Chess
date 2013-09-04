@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class GameFrame extends JFrame implements MouseListener {
     private final JMenu menu = new JMenu("Menu");
-    private Board board;
+    private static Board board;
     private GraphicalViewer graphicalViewer;
     private Piece highlightedPiece = null;
     private ArrayList<Position> possiblePositions = new ArrayList<Position>();
@@ -90,6 +90,13 @@ public class GameFrame extends JFrame implements MouseListener {
 
     public boolean isShowPossiblePositions() {
         return showPossiblePositions;
+    }
+
+    /**
+     * Resets to a new game.
+     */
+    public static void resetGame() {
+        board = new Board();
     }
 
 }
